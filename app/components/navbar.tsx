@@ -1,15 +1,19 @@
+"use client"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function Navbar() {
 	return (
-		<div className="flex flex-col justify-center items-center">
+		<div
+			id="NavbarWrapper"
+			className="flex flex-col justify-center items-center mb-5"
+		>
 			<div
 				id="Navbar"
 				className="flex flex-col gap-10 border-b-2 w-2/3 border-yellow-900"
 			>
 				<div
-					id="NavBarTitle"
+					id="NavbarTitle"
 					className="flex items-center justify-center mt-5 gap-10"
 				>
 					<Image
@@ -21,7 +25,7 @@ export default function Navbar() {
 					<h1 className="text-7xl">Coffee Blog</h1>
 				</div>
 				<div
-					id="NavBarButtons"
+					id="NavbarButtons"
 					className="flex flex-row gap-10 justify-around m-2 font-semibold"
 				>
 					<Link
