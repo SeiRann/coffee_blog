@@ -1,38 +1,71 @@
 const typeDefs = `#graphql
-  type User {
-    id: ID!
-    first_name: String!
-    last_name: String!
-    email: String!
-    age: Int!
-    active: Boolean
-  }
-  
-  input NewUserInput {
-    first_name: String!
-    last_name: String!
-    email: String!
-    age: Int!
-  }
+    scalar Date{
+        date: String!
+    }
 
-  input UpdateUserInput {
-    id: ID!
-    first_name: String
-    last_name: String
-    email: String
-    age: Int
-    active: Boolean
-  }
+    type Reply{
+        commentCode: ID!
+        replyAuthor: String
+        replyLikes: Int!
+        replies: [Reply!]
+        replyText: String!
+    }
+    
+    type Socials{
+        github:String
+        linkedin:String
+        discord:String
+        telegram:String
+        instagram:String
+        facebook:String
+    }
 
-  type Query {
-    users: [User]
-  }
+    type Comment {
+        postCode: String!
+        commentText: String!
+        commentAuthor: String
+        commentReply: [Reply!]
+        commentLikes: Int!
+    }
 
-  type Mutation {
-    createUser(input: NewUserInput!): User
-    updateUser(input: UpdateUserInput!): User
-    deleteUser(id: ID!): String
-  }
+    type Post{
+        postCode: String!
+        title: String!
+        text: String!
+        authorUsername: String!
+        category: String!
+        datePosted: Date!
+        comments: [Comment!]
+        postLikes: Int
+        views: Int
+        images: [String!]
+        thumbnail: String
+    }
+
+    type User {
+        username: String!
+        email: String!
+        passwordHash: String!
+        interests: [String!]
+        posts: [Post!]
+        socials: Socials
+        accountAge: Date!
+    }
+
+    type Statistics {
+        totalPosts: Int
+        totalAccounts: Int
+        totalComments: Int
+        totalLikes: Int
+        onlineUsers: Int
+        mostVisitedCategory: String!
+    }
+
+    input newPostInput {
+    }
+
+    input newUserInput {
+    }
 `
 
 export default typeDefs

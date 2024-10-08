@@ -4,8 +4,8 @@ import { ApolloServer } from "@apollo/server"
 import { NextRequest, NextResponse } from "next/server"
 import typeDefs from "./schema"
 import resolvers from "./resolvers"
-import Users from "./datasources"
-import UserModel from "./models"
+import { Users } from "./datasources"
+import { UserModel } from "./models"
 
 const uri = process.env.NEXT_PUBLIC_MONGODB_URI
 

@@ -15,6 +15,24 @@ interface Social {
 	facebook?: string
 }
 
+interface IStatistics extends Document {
+	totalPosts: number
+	totalAccounts: number
+	totalComments: number
+	totalLikes: number
+	onlineUsers: number
+	mostVisitedCategory: string
+}
+
+const statsSchema = new Schema<IStatistics>({
+	totalPosts: Number,
+	totalAccounts: Number,
+	totalComments: Number,
+	totalLikes: Number,
+	onlineUsers: Number,
+	mostVisitedCategory: String,
+})
+
 interface IReply extends GeneralComment {
 	commentCode: string
 	replies: IReply[]
@@ -28,12 +46,12 @@ const replySchema = new Schema<IReply>({
 	replies: [{ type: Schema.Types.ObjectId, ref: "Reply" }],
 })
 
-interface IPostComment extends GeneralComment {
+interface IComment extends GeneralComment {
 	postCode: string
 	replies: IReply[]
 }
 
-const commentPostSchema = new Schema<IPostComment>({
+const commentSchema = new Schema<IComment>({
 	postCode: { type: String, required: true },
 	commentAuthor: String,
 	commentText: { type: String, required: true },
@@ -48,7 +66,7 @@ interface IPost extends Document {
 	authorUsername?: string
 	category: string
 	datePosted: Date
-	comments: IPostComment[]
+	comments: IComment[]
 	likes: number
 	views: number
 	images?: string[]
@@ -62,7 +80,7 @@ const postSchema = new Schema<IPost>({
 	authorUsername: String,
 	category: { type: String, required: true },
 	datePosted: { type: Date, required: true },
-	comments: [commentPostSchema],
+	comments: [commentSchema],
 	likes: { type: Number, default: 0 },
 	views: { type: Number, default: 0 },
 	images: [{ type: String }],
@@ -96,9 +114,10 @@ const userSchema = new Schema<IUser>({
 	accountAge: { type: Date, required: true },
 })
 
-const User = mongoose.model<IUser>("User", userSchema)
-const Post = mongoose.model<IPost>("Post", postSchema)
-const PostComment = mongoose.model<IPostComment>("Comment", commentPostSchema)
-const Reply = mongoose.model<IReply>("Reply", replySchema)
+const UserModel = mongoose.model<IUser>("User", userSchema)
+const PostModel = mongoose.model<IPost>("Post", postSchema)
+const CommentModel = mongoose.model<IComment>("Comment", commentSchema)
+const ReplyModel = mongoose.model<IReply>("Reply", replySchema)
+const StatisticsModel = mongoose.model<IStatistics>("Statistics", statsSchema)
 
-export { User, Post, PostComment, Reply }
+export { UserModel, PostModel, CommentModel, ReplyModel, StatisticsModel }

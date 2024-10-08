@@ -1,58 +1,75 @@
 // MongoDB Data Source for Users
-import UserModel from "../models"
+import { UserModel, PostModel, CommentModel, ReplyModel, StatisticsModel } from "../models"
 import { MongoDataSource } from "apollo-datasource-mongodb"
 import { ObjectId } from "mongodb"
 
+// interface UserDocument {
+// 	_id: ObjectId
+// 	username: string
+// 	password: string
+// 	email: string
+// 	interests: [string]
+// }
+
+interface Social {
+	github?: string
+	linkedin?: string
+	discord?: string
+	telegram?: string
+	instagram?: string
+	facebook?: string
+}
+
 interface UserDocument {
-	_id: ObjectId
 	username: string
-	password: string
 	email: string
-	interests: [string]
+	passwordHash: string
+	interests: string[]
+	posts: PostDocument[]
+	socials: Social
+	accountAge: Date
+}
+interface PostDocument {
+	postCode: string
+	title: string
+	text: string
+	authorUsername?: string
+	category: string
+	datePosted: Date
+	comments: CommentDocument[]
+	likes: number
+	views: number
+	images?: string[]
+	thumbnail?: string
 }
 
-export default class Users extends MongoDataSource<UserDocument> {
-	// Function to fetch all users
-	async getAllUsers() {
-		try {
-			return await UserModel.find()
-		} catch (error) {
-			throw new Error("Failed to fetch users")
-		}
-	}
-
-	// Function to create a new user
-	async createUser({ input }: any) {
-		try {
-			return await UserModel.create({ ...input })
-		} catch (error) {
-			throw new Error("Failed to create user")
-		}
-	}
-
-	// Function to update existing user
-	async updateUser({ input }: any) {
-		try {
-			const updatedUser = await UserModel.findByIdAndUpdate(
-				input.id,
-				{ ...input },
-				{
-					new: true,
-				}
-			)
-			return updatedUser
-		} catch (error) {
-			throw new Error("Failed to update user")
-		}
-	}
-
-	// Function to delete existing user
-	async deleteUser({ id }: { id: string }): Promise<string> {
-		try {
-			await UserModel.findByIdAndDelete(id)
-			return "User deleted successfully"
-		} catch (error) {
-			throw new Error("Failed to delete user")
-		}
-	}
+interface ReplyDocument {
+	commentCode: string
+	commentAuthor?: string
+	commentText: string
+	commentLikes: number
+	replies: this[]
 }
+
+interface CommentDocument {
+	postCode: string
+	commentAuthor?: string
+	commentText: string
+	commentLikes: number
+	replies: ReplyDocument[]
+}
+
+interface StatsDocument {
+	totalPosts: number
+	totalAccounts: number
+	totalComments: number
+	totalLikes: number
+	onlineUsers: number
+	mostVisitedCategory: string
+}
+
+export class Users extends MongoDataSource<UserDocument> {}
+export class Posts extends MongoDataSource<PostDocument> {}
+export class Comments extends MongoDataSource<CommentDocument> {}
+export class Replies extends MongoDataSource<ReplyDocument> {}
+export class Statistics extends MongoDataSource<StatsDocument> {}
