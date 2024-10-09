@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server"
 import typeDefs from "./schema"
 import resolvers from "./resolvers"
 import Users from "./datasources"
-import UserModel from "./models"
+import { UserModel } from "./models"
 
 const uri = process.env.MONGODB_URI
 
