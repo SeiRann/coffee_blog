@@ -1,28 +1,48 @@
 const typeDefs = `#graphql
-  type User {
-    id: ID!
-    first_name: String!
-    last_name: String!
-    email: String!
-    age: Int!
-    active: Boolean
-  }
-  
-  input NewUserInput {
-    first_name: String!
-    last_name: String!
-    email: String!
-    age: Int!
-  }
+   type Social{
+      github: String
+      linkedin: String
+      discord: String
+      telegram: String
+      instagram: String
+      facebook: String
+   }
+   
+   input SocialInput {
+      github: String
+      linkedin: String
+      discord: String
+      telegram: String
+      instagram: String
+      facebook: String
+   }
 
-  input UpdateUserInput {
-    id: ID!
-    first_name: String
-    last_name: String
-    email: String
-    age: Int
-    active: Boolean
-  }
+   type User{
+      id:ID!
+      username: String!
+      email: String!
+      passwordHash:String!
+      interests: [String!]
+      posts: [String!]
+      socials: Social
+   }
+
+  
+   input NewUserInput {
+      username:String!
+      email:String!
+      passwordHash:String!
+   }
+
+   input UpdateUserInput {
+      id: ID!
+      username: String
+      email: String
+      passwordHash:String
+      interests: [String!]
+      posts: [String!]
+      socials: SocialInput
+   }
 
   type Query {
     users: [User]
