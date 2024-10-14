@@ -28,9 +28,15 @@ export default function AccountForm({ refetch }: any) {
 	}
 
 	return (
-		<div className="flex flex-col justify-center items-center bg-slate-500">
-			<form onSubmit={handleSubmit(onSubmit)} className="w-1/4 h-1/4 flex flex-col">
-				<input type="text" placeholder="Username" defaultValue={"user"} {...register("username")} />
+		<div className="flex flex-col w-2/3 border items-center justify-center">
+			<form onSubmit={handleSubmit(onSubmit)} className="w-1/4 h-1/4 flex flex-col gap-5">
+				<input
+					className="rounded-sm border-"
+					type="text"
+					placeholder="Username"
+					defaultValue={"user"}
+					{...register("username")}
+				/>
 				<input
 					type="text"
 					placeholder="Email"

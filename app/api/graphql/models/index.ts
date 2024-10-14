@@ -103,18 +103,18 @@ interface IUser extends Document {
 const userSchema = new Schema({
 	username: { type: String, required: true },
 	email: { type: String, required: true },
-	// passwordHash: { type: String, required: true },
-	// interests: [String],
-	// posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-	// socials: {
-	// 	github: { type: String },
-	// 	linkedin: { type: String },
-	// 	discord: { type: String },
-	// 	telegram: { type: String },
-	// 	instagram: { type: String },
-	// 	facebook: { type: String },
-	// },
-	// accountAge: { type: Date, required: true, default: Date.now },
+	passwordHash: { type: String, required: true },
+	interests: [{ type: String }],
+	posts: [{ type: String }],
+	socials: {
+		github: { type: String, default: "" },
+		linkedin: { type: String, default: "" },
+		discord: { type: String, default: "" },
+		telegram: { type: String, default: "" },
+		instagram: { type: String, default: "" },
+		facebook: { type: String, default: "" },
+	},
+	accountAge: { type: Date, required: true, default: Date.now() },
 })
 
 // Model Exports

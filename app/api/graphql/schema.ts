@@ -5,7 +5,7 @@ const typeDefs = `#graphql
 	commentText: String
 	commentReply: [Reply!]
 	commentLikes: Int
-}
+    }
 
     type Reply {
         commentCode: String!
@@ -41,6 +41,11 @@ const typeDefs = `#graphql
     type User {
         username: String!
         email: String!
+        passwordHash: String!
+        interests: [String!]
+        posts:[String!]
+        socials:Social
+        accountAge:String
     }
 
     type Statistics {
@@ -52,9 +57,10 @@ const typeDefs = `#graphql
         mostVisitedCategory: String!
     }
 
-    input UserInput {
+    input NewUserInput {
         username: String!
         email: String!
+        passwordHash: String!
     }
 
     type Query {
@@ -70,7 +76,7 @@ const typeDefs = `#graphql
     }
 
     type Mutation {
-        createUser(input: UserInput!): User
+        createUser(input: NewUserInput!):User
     }
 `
 
