@@ -1,6 +1,6 @@
 // MongoDB Data Source for Users
-import { UserModel } from "../models"
-// import { UserModel, PostModel, CommentModel, ReplyModel, StatisticsModel } from "../models"
+// import { UserModel } from "../models"
+import { UserModel, PostModel, CommentModel, ReplyModel, StatisticsModel } from "../models"
 import { MongoDataSource } from "apollo-datasource-mongodb"
 
 // interface UserDocument {
@@ -81,7 +81,7 @@ export default class Users extends MongoDataSource<UserDocument> {
 		try {
 			return await UserModel.create({ ...input })
 		} catch (err) {
-			throw new Error("Failed to create user")
+			throw new Error("Failed to create user:" + err)
 		}
 	}
 
