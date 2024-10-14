@@ -1,16 +1,17 @@
+"use client"
 import Navbar from "./components/navbar"
 import "./globals.css"
+import { ApolloProvider } from "@apollo/client"
+import client from "./apollo-client"
 
-export default function RootLayout({
-	children,
-}: Readonly<{
-	children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
 			<body>
-				<Navbar />
-				{children}
+				<ApolloProvider client={client}>
+					<Navbar />
+					{children}
+				</ApolloProvider>
 			</body>
 		</html>
 	)
