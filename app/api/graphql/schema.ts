@@ -1,83 +1,38 @@
 const typeDefs = `#graphql
-    type Comment {
-	postCode: String!
-	commentAuthor: String
-	commentText: String
-	commentReply: [Reply!]
-	commentLikes: Int
-    }
+  type User {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    email: String!
+    age: Int!
+    active: Boolean
+  }
+  
+  input NewUserInput {
+    first_name: String!
+    last_name: String!
+    email: String!
+    age: Int!
+  }
 
-    type Reply {
-        commentCode: String!
-        replyAuthor: String
-        replyText: String
-        replies: [Reply!]
-        replyLikes: Int
-    }
+  input UpdateUserInput {
+    id: ID!
+    first_name: String
+    last_name: String
+    email: String
+    age: Int
+    active: Boolean
+  }
 
-    type Post {
-        postCode: String!
-        title: String!
-        text: String!
-        authorUsername: String!
-        category: String!
-        datePosted: String!
-        comments: [Comment!]
-        likes: Int
-        views: Int
-        images: [String!]
-        thumbnail: String
-    }
+  type Query {
+    users: [User]
+  }
 
-    type Social {
-        github: String
-        linkedin: String
-        discord: String
-        telegram: String
-        instagram: String
-        facebook: String
-    }
-
-    type User {
-        username: String!
-        email: String!
-        passwordHash: String!
-        interests: [String!]
-        posts:[String!]
-        socials:Social
-        accountAge:String
-    }
-
-    type Statistics {
-        totalPosts: Int!
-        totalAccounts: Int!
-        totalComments: Int!
-        totalLikes: Int!
-        onlineUsers: Int!
-        mostVisitedCategory: String!
-    }
-
-    input NewUserInput {
-        username: String!
-        email: String!
-        passwordHash: String!
-    }
-
-    type Query {
-        users: [User!]!
-    }
-
-    type Query {
-        posts: [Post!]!
-    }
-
-    type Query {
-        stats: Statistics!
-    }
-
-    type Mutation {
-        createUser(input: NewUserInput!):User
-    }
+  type Mutation {
+    createUser(input: NewUserInput!): User
+    updateUser(input: UpdateUserInput!): User
+    deleteUser(id: ID!): String
+  }
 `
 
 export default typeDefs

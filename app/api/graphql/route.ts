@@ -1,11 +1,11 @@
 import { startServerAndCreateNextHandler } from "@as-integrations/next"
 import mongoose from "mongoose"
 import { ApolloServer } from "@apollo/server"
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest } from "next/server"
 import typeDefs from "./schema"
 import resolvers from "./resolvers"
 import Users from "./datasources"
-import { UserModel } from "./models"
+import UserModel from "./models"
 
 const uri = process.env.MONGODB_URI
 
@@ -27,7 +27,7 @@ const server = new ApolloServer({
 })
 
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {
-	context: async (req: NextRequest, res: NextResponse) => ({
+	context: async (req, res) => ({
 		req,
 		res,
 		dataSources: {
