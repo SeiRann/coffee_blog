@@ -9,15 +9,10 @@ interface Post {
 
 export default function BlogPost(post: Post) {
 	return (
-		<div
-			id="Blog"
-			className="w-full rounded-xl p-3 border-yellow-900 border-b-2"
-		>
+		<div id="Blog" className="w-full rounded-xl p-3 border-yellow-900 border-b-2">
 			<header className="flex flex-col">
 				<div className="flex gap-3 items-center">
-					<h6 className="bg-yellow-900 text-white rounded-md p-1">
-						{post.author}
-					</h6>
+					<h6 className="bg-yellow-900 text-white rounded-md p-1">{post.author}</h6>
 					<h6>{post.category}</h6>
 					<h6>
 						{post.datePosted.toLocaleString("en-US", {

@@ -7,6 +7,20 @@ const resolvers = {
 				throw new Error("Failed to fetch users")
 			}
 		},
+		user: async (_: any, { username }: any, context: any) => {
+			try {
+				return await context.dataSources.users.findOne(username)
+			} catch (error) {
+				throw new Error(`Failed to fetch user with username: ${username}`)
+			}
+		},
+		login: async (_: any, { input }: any, context: any) => {
+			try {
+				return await context.dataSources.users.login(input)
+			} catch (err) {
+				throw new Error("Failed login:" + err)
+			}
+		},
 	},
 	Mutation: {
 		createUser: async (_: any, { input }: any, context: any) => {

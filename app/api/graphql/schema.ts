@@ -34,6 +34,11 @@ const typeDefs = `#graphql
       passwordHash:String!
    }
 
+   input LoginInput{
+      username:String!
+      password:String
+   }
+
    input UpdateUserInput {
       id: ID!
       username: String
@@ -44,15 +49,17 @@ const typeDefs = `#graphql
       socials: SocialInput
    }
 
-  type Query {
-    users: [User]
-  }
+   type Query{
+      users: [User]
+      user(username:String!): User
+      login(input:LoginInput! ): User
+   }
 
-  type Mutation {
-    createUser(input: NewUserInput!): User
-    updateUser(input: UpdateUserInput!): User
-    deleteUser(id: ID!): String
-  }
+   type Mutation {
+      createUser(input: NewUserInput!): User
+      updateUser(input: UpdateUserInput!): User
+      deleteUser(id: ID!): String
+   }
 `
 
 export default typeDefs
