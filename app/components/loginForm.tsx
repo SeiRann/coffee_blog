@@ -1,6 +1,8 @@
+"use client"
 import { useForm } from "react-hook-form"
 import { LOGIN_USER } from "../constants"
 import { useLazyQuery } from "@apollo/client"
+import { useEffect } from "react"
 
 type inputs = {
 	username: string
@@ -29,6 +31,12 @@ export default function LoginAccountForm() {
 		})
 	}
 
+	useEffect(() => {
+		if (data?.login != null) {
+			localStorage.setItem("user", JSON.stringify(data.login))
+		}
+	}, [data])
+
 	return (
 		<div>
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -36,12 +44,6 @@ export default function LoginAccountForm() {
 				<input type="password" placeholder="Password" {...register("password", { required: true })} />
 				<button>Login</button>
 			</form>
-			{data && (
-				<div>
-					<h1>Welcome, {data.login.username}</h1>
-					<p>With the email: {data.login.email}</p>
-				</div>
-			)}
 		</div>
 	)
 }
