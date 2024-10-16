@@ -44,7 +44,7 @@ type User {
 	interests: [String!]
 	posts: [Post!]
 	socials: Social
-	accountAge: String!
+	dateCreated: String!
 }
 
 type Statistics {

@@ -8,14 +8,16 @@ const userSchema = new Schema({
 	passwordHash: { type: String, required: true, unique: true },
 	interests: [{ type: String }],
 	posts: [{ type: String }],
-	socials: {
-		github: { type: String },
-		linkedin: { type: String },
-		discord: { type: String },
-		telegram: { type: String },
-		instagram: { type: String },
-		facebook: { type: String },
-	},
+	socials: [
+		{
+			github: { type: String },
+			linkedin: { type: String },
+			discord: { type: String },
+			telegram: { type: String },
+			instagram: { type: String },
+			facebook: { type: String },
+		},
+	],
 	dateCreated: { type: Date, required: true, default: Date.now() },
 })
 

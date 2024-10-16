@@ -10,6 +10,17 @@ interface UserDocument {
 	password: string
 	email: string
 	interests: [string]
+	socials: [
+		{
+			github: string
+			linkedin: string
+			discord: string
+			telegram: string
+			instagram: string
+			facebook: string
+		}
+	]
+	dateCreated: Date
 }
 
 export default class Users extends MongoDataSource<UserDocument> {

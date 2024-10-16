@@ -42,6 +42,15 @@ export const LOGIN_USER = gql`
 			email
 			interests
 			posts
+			dateCreated
+			socials {
+				github
+				linkedin
+				discord
+				telegram
+				instagram
+				facebook
+			}
 		}
 	}
 `
@@ -55,6 +64,14 @@ export const CREATE_USER = gql`
 			passwordHash
 			interests
 			posts
+			socials {
+				github
+				linkedin
+				discord
+				telegram
+				instagram
+				facebook
+			}
 		}
 	}
 `

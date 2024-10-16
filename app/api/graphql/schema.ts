@@ -24,7 +24,8 @@ const typeDefs = `#graphql
       passwordHash:String!
       interests: [String!]
       posts: [String!]
-      socials: Social
+      socials: [Social]
+      dateCreated: String!
    }
 
   
