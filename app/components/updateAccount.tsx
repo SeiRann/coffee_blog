@@ -1,10 +1,19 @@
 "use client"
 import { useAppSelector } from "../lib/hooks"
-import { selectUser } from "../lib/features/user/userSlice"
+import { selectStatus, selectUser } from "../lib/features/user/userSlice"
 import Link from "next/link"
+import { useEffect } from "react"
+import { redirect } from "next/navigation"
 
 export default function UpdateForm() {
 	const user = useAppSelector(selectUser)
+	const status = useAppSelector(selectStatus)
+
+	useEffect(() => {
+		if (!status) {
+			redirect("/login")
+		}
+	})
 
 	return (
 		<div className="w-2/3">
