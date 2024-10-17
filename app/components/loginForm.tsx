@@ -25,7 +25,6 @@ export default function LoginAccountForm() {
 	const onSubmit = async (formData: Inputs) => {
 		const { username, password } = formData || {}
 
-		// Trigger login with provided username and password
 		await loginUser({
 			variables: {
 				input: {

@@ -10,10 +10,7 @@ export default function AccountInfo() {
 	const status = useAppSelector(selectStatus)
 
 	useEffect(() => {
-		if (status) {
-			console.log(user)
-			console.log(status)
-		} else {
+		if (!status) {
 			redirect("/login")
 		}
 	})

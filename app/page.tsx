@@ -1,4 +1,4 @@
-import BlogPost from "./components/BlogPost"
+import BlogPost from "./components/blogPost"
 
 export default function Home() {
 	const post = {

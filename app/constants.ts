@@ -75,3 +75,24 @@ export const CREATE_USER = gql`
 		}
 	}
 `
+
+export const UPDATE_USER = gql`
+	mutation updateUser($input: UpdateUserInput!) {
+		updateUser(input: $input) {
+			id
+			username
+			email
+			interests
+			posts
+			dateCreated
+			socials {
+				github
+				linkedin
+				discord
+				telegram
+				instagram
+				facebook
+			}
+		}
+	}
+`
