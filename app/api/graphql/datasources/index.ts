@@ -118,7 +118,7 @@ export class Posts extends MongoDataSource<PostDocument> {
 		try {
 			const postid = generatePostCode(6)
 			input.postid = postid
-			console.log(input)
+
 			const post = await PostModel.create({ ...input })
 			return post
 		} catch (err) {
