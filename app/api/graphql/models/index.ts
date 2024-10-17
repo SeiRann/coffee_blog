@@ -21,4 +21,16 @@ const userSchema = new Schema({
 	dateCreated: { type: Date, required: true, default: Date.now() },
 })
 
-export default mongoose.models.UserModel || mongoose.model("UserModel", userSchema)
+const postSchema = new Schema({
+	postid: { type: String, required: true },
+	title: { type: String, required: true },
+	text: { type: String, required: true },
+	author: { type: String, required: true },
+	category: { type: String },
+	dateCreated: { type: Date, required: true, default: Date.now() },
+})
+
+const UserModel = mongoose.models.UserModel || mongoose.model("UserModel", userSchema)
+const PostModel = mongoose.models.PostModel || mongoose.model("PostModel", postSchema)
+
+export { UserModel, PostModel }

@@ -3,6 +3,8 @@ import { useAppSelector } from "../lib/hooks"
 import { selectUser } from "../lib/features/user/userSlice"
 import { Post } from "./BlogPost"
 import { useForm } from "react-hook-form"
+import { useMutation } from "@apollo/client"
+import { CREATE_POST } from "../constants"
 
 export default function CreatePost() {
 	const user = useAppSelector(selectUser)

@@ -75,3 +75,16 @@ export const CREATE_USER = gql`
 		}
 	}
 `
+
+export const CREATE_POST = gql`
+	mutation createPost($input: NewPostInput!) {
+		createPost(input: $input) {
+			postid
+			title
+			text
+			author
+			category
+			dateCreated
+		}
+	}
+`

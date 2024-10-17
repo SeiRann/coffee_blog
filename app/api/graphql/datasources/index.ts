@@ -1,8 +1,9 @@
 // MongoDB Data Source for Users
-import UserModel from "../models"
+import { UserModel, PostModel } from "../models"
 import { MongoDataSource } from "apollo-datasource-mongodb"
 import { ObjectId } from "mongodb"
 import { hash, compare } from "bcrypt"
+import generatePostCode from "../serverFunctions/postCodeGen"
 
 interface UserDocument {
 	_id: ObjectId
@@ -23,7 +24,17 @@ interface UserDocument {
 	dateCreated: Date
 }
 
-export default class Users extends MongoDataSource<UserDocument> {
+interface PostDocument {
+	_id: ObjectId
+	postid: string
+	title: string
+	text: string
+	author: string
+	category: string
+	dateCreated: Date
+}
+
+export class Users extends MongoDataSource<UserDocument> {
 	async getAllUsers() {
 		try {
 			return await UserModel.find()
@@ -90,6 +101,28 @@ export default class Users extends MongoDataSource<UserDocument> {
 			return "User deleted successfully"
 		} catch (error) {
 			throw new Error("Failed to delete user")
+		}
+	}
+}
+
+export class Posts extends MongoDataSource<PostDocument> {
+	async getAllPosts() {
+		try {
+			return await PostModel.find()
+		} catch (err) {
+			throw new Error("Failed to find posts" + err)
+		}
+	}
+
+	async createPost({ input }: any) {
+		try {
+			const postCode = generatePostCode(6)
+			input.postCode = postCode
+
+			const post = await PostModel.create({ ...input })
+			return post
+		} catch (err) {
+			throw new Error("Failed to create post" + err)
 		}
 	}
 }

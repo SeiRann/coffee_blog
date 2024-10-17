@@ -1,4 +1,5 @@
 const typeDefs = `#graphql
+#=============================================================================================================
    type Social{
       github: String
       linkedin: String
@@ -49,17 +50,41 @@ const typeDefs = `#graphql
       posts: [String!]
       socials: SocialInput
    }
+#=============================================================================================================
+   type Post{
+      id: ID!
+      postid:String!
+      title: String!
+      text: String!
+      author: String!
+      category: String!
+      dateCreated: String!
+   }
 
+   input NewPostInput{
+      title:String!
+      text:String!
+      author:String!
+      category:String!
+      dateCreated: String!
+   }
+#=============================================================================================================
    type Query{
       users: [User]
       user(username:String!): User
       login(input:LoginInput! ): User
+
+
+      posts: [Post]
+      post(postid:String!):Post
    }
 
    type Mutation {
       createUser(input: NewUserInput!): User
       updateUser(input: UpdateUserInput!): User
       deleteUser(id: ID!): String
+
+      createPost(input: NewPostInput!): Post
    }
 `
 

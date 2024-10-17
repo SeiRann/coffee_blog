@@ -21,6 +21,13 @@ const resolvers = {
 				throw new Error("Failed login:" + err)
 			}
 		},
+		posts: async (_: any, __: any, context: { dataSources: { posts: { getAllPosts: () => any } } }) => {
+			try {
+				return await context.dataSources.posts.getAllPosts()
+			} catch (err) {
+				throw new Error("Failed to create get posts" + err)
+			}
+		},
 	},
 	Mutation: {
 		createUser: async (_: any, { input }: any, context: any) => {
@@ -45,6 +52,16 @@ const resolvers = {
 				return await context.dataSources.users.deleteUser({ id })
 			} catch (error) {
 				throw new Error("Failed to delete user")
+			}
+		},
+		createPost: async (_: any, { input }: any, context: any) => {
+			try {
+				const newPost = await context.dataSources.posts.createPost({
+					input,
+				})
+				return newPost
+			} catch (err) {
+				throw new Error("Failed to create Post" + err)
 			}
 		},
 	},
