@@ -67,9 +67,10 @@ export default class Users extends MongoDataSource<UserDocument> {
 		}
 	}
 
-	// Function to update existing user
 	async updateUser({ input }: any) {
 		try {
+			const password = await hash(input.passwordHash, 10)
+			input.passwordHash = password
 			const updatedUser = await UserModel.findByIdAndUpdate(
 				input.id,
 				{ ...input },
@@ -79,7 +80,7 @@ export default class Users extends MongoDataSource<UserDocument> {
 			)
 			return updatedUser
 		} catch (error) {
-			throw new Error("Failed to update user")
+			throw new Error("Failed to update user" + error)
 		}
 	}
 
