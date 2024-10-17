@@ -2,6 +2,7 @@
 import { useMutation } from "@apollo/client"
 import { CREATE_USER } from "../constants"
 import { useForm } from "react-hook-form"
+import Link from "next/link"
 
 type inputs = {
 	username: String
@@ -51,7 +52,17 @@ export default function RegisterAccountForm({ refetch }: any) {
 					{...register("passwordHash", { required: true })}
 				/>
 				{errors.email && <span>This field is required</span>}
-				<button className="bg-teal-500 text-white rounded-md border-2 w-48 p-1.5">Submit</button>
+				<div className="flex flex-row gap-6 justify-center items-center">
+					<Link
+						href={"/login"}
+						className="flex align-middle items-center justify-center text-blue-400 bg-white border-2 rounded-md w-28 h-11"
+					>
+						Login
+					</Link>
+					<button type="submit" className="bg-blue-400 text-white rounded-md w-28 h-11">
+						Register
+					</button>
+				</div>
 			</form>
 		</div>
 	)
