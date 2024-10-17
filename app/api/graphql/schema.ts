@@ -66,7 +66,6 @@ const typeDefs = `#graphql
       text:String!
       author:String!
       category:String!
-      dateCreated: String!
    }
 #=============================================================================================================
    type Query{

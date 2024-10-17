@@ -20,8 +20,8 @@ export default function Navbar() {
 					<Link href="/ket" className="duration-200 hover:text-yellow-800">
 						Cats
 					</Link>
-					<Link href="/cookie" className="duration-200 hover:text-yellow-800">
-						Cookies
+					<Link href="/post" className="duration-200 hover:text-yellow-800">
+						Create Post
 					</Link>
 					<Link href="/account" className="duration-200 hover:text-yellow-800">
 						Account
