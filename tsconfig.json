@@ -27,7 +27,7 @@
 		"**/*.tsx",
 		".next/types/**/*.ts",
 		"app/lib/db.js",
-		"app/api/graphql/route.js"
+		"app/api/graphql/route.ts"
 	],
 	"exclude": ["node_modules"]
 }
