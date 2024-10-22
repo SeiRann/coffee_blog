@@ -32,9 +32,7 @@ const resolvers = {
 	Mutation: {
 		createUser: async (_: any, { input }: any, context: any) => {
 			try {
-				const newUser = await context.dataSources.users.createUser({
-					input,
-				})
+				const newUser = await context.dataSources.users.createUser(input)
 				return newUser
 			} catch (error) {
 				throw new Error("Failed to create user")

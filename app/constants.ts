@@ -97,6 +97,19 @@ export const UPDATE_USER = gql`
 	}
 `
 
+export const FETCH_POSTS = gql`
+	query Posts {
+		posts {
+			postid
+			title
+			text
+			author
+			category
+			dateCreated
+		}
+	}
+`
+
 export const CREATE_POST = gql`
 	mutation createPost($input: NewPostInput!) {
 		createPost(input: $input) {

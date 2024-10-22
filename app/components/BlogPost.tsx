@@ -4,7 +4,7 @@ export interface Post {
 	text: string
 	author: string
 	category: string
-	datePosted: Date
+	dateCreated: Date
 }
 
 export default function BlogPost(post: Post) {
@@ -15,9 +15,9 @@ export default function BlogPost(post: Post) {
 					<h6 className="bg-yellow-900 text-white rounded-md p-1">{post.author}</h6>
 					<h6>{post.category}</h6>
 					<h6>
-						{post.datePosted.toLocaleString("en-US", {
+						{new Date(Number(post.dateCreated)).toLocaleString("en-US", {
 							year: "numeric",
-							month: "short",
+							month: "numeric",
 							day: "numeric",
 							hour: "2-digit",
 							minute: "2-digit",
