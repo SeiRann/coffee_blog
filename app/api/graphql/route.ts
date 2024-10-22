@@ -4,8 +4,8 @@ import { ApolloServer } from "@apollo/server"
 import { NextRequest } from "next/server"
 import typeDefs from "./schema"
 import resolvers from "./resolvers"
-import Users from "./datasources"
-import UserModel from "./models"
+import { Users, Posts } from "./datasources"
+import { UserModel, PostModel } from "./models"
 
 const uri = process.env.MONGODB_URI
 
@@ -32,6 +32,7 @@ const handler = startServerAndCreateNextHandler<NextRequest>(server, {
 		res,
 		dataSources: {
 			users: new Users({ modelOrCollection: UserModel }),
+			posts: new Posts({ modelOrCollection: PostModel }),
 		},
 	}),
 })

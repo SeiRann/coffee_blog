@@ -1,8 +1,9 @@
 // MongoDB Data Source for Users
-import UserModel from "../models"
+import { UserModel, PostModel } from "../models"
 import { MongoDataSource } from "apollo-datasource-mongodb"
 import { ObjectId } from "mongodb"
 import { hash, compare } from "bcrypt"
+import generatePostCode from "../serverFunctions/postCodeGen"
 
 interface UserDocument {
 	_id: ObjectId
@@ -23,7 +24,28 @@ interface UserDocument {
 	dateCreated: Date
 }
 
-export default class Users extends MongoDataSource<UserDocument> {
+interface loginInput {
+	username: string
+	password: string
+}
+
+interface createUserInput {
+	username: string
+	passwordHash: string
+	email: string
+}
+
+interface PostDocument {
+	_id: ObjectId
+	postid: string
+	title: string
+	text: string
+	author: string
+	category: string
+	dateCreated: Date
+}
+
+export class Users extends MongoDataSource<UserDocument> {
 	async getAllUsers() {
 		try {
 			return await UserModel.find()
@@ -40,7 +62,7 @@ export default class Users extends MongoDataSource<UserDocument> {
 		}
 	}
 
-	async login(input: any) {
+	async login(input: loginInput) {
 		try {
 			const user = await this.findOne(input.username)
 			if (user != null) {
@@ -56,17 +78,18 @@ export default class Users extends MongoDataSource<UserDocument> {
 	}
 
 	// Function to create a new user
-	async createUser({ input }: any) {
+	async createUser(input: createUserInput) {
 		try {
 			const passwordHash = await hash(input.passwordHash, 10)
 			input.passwordHash = passwordHash
 
 			return await UserModel.create({ ...input })
 		} catch (error) {
-			throw new Error("Failed to create user")
+			throw new Error("Failed to create user" + error)
 		}
 	}
 
+	// Function to update existing user
 	async updateUser({ input }: any) {
 		try {
 			const password = await hash(input.passwordHash, 10)
@@ -90,7 +113,31 @@ export default class Users extends MongoDataSource<UserDocument> {
 			await UserModel.findByIdAndDelete(id)
 			return "User deleted successfully"
 		} catch (error) {
-			throw new Error("Failed to delete user")
+			throw new Error("Failed to delete user" + error)
+		}
+	}
+}
+
+export class Posts extends MongoDataSource<PostDocument> {
+	async getAllPosts() {
+		try {
+			return await PostModel.find()
+		} catch (err) {
+			throw new Error("Failed to find posts" + err)
+		}
+	}
+
+	async createPost(input: any) {
+		try {
+			const { authorid, ...importantInfo } = input
+			const user = await UserModel.findById(authorid)
+			const author = user.username
+			const postid = generatePostCode(6)
+			const dateCreated = Date.now()
+
+			return await PostModel.create({ ...importantInfo, author, postid, dateCreated })
+		} catch (err) {
+			throw new Error("Failed to create post" + err)
 		}
 	}
 }
