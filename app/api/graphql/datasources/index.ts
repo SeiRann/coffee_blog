@@ -24,6 +24,17 @@ interface UserDocument {
 	dateCreated: Date
 }
 
+interface loginInput {
+	username: string
+	password: string
+}
+
+interface createUserInput {
+	username: string
+	passwordHash: string
+	email: string
+}
+
 interface PostDocument {
 	_id: ObjectId
 	postid: string
@@ -51,7 +62,7 @@ export class Users extends MongoDataSource<UserDocument> {
 		}
 	}
 
-	async login(input: any) {
+	async login(input: loginInput) {
 		try {
 			const user = await this.findOne(input.username)
 			if (user != null) {
@@ -67,20 +78,22 @@ export class Users extends MongoDataSource<UserDocument> {
 	}
 
 	// Function to create a new user
-	async createUser({ input }: any) {
+	async createUser(input: createUserInput) {
 		try {
 			const passwordHash = await hash(input.passwordHash, 10)
 			input.passwordHash = passwordHash
 
 			return await UserModel.create({ ...input })
 		} catch (error) {
-			throw new Error("Failed to create user")
+			throw new Error("Failed to create user" + error)
 		}
 	}
 
 	// Function to update existing user
 	async updateUser({ input }: any) {
 		try {
+			const password = await hash(input.passwordHash, 10)
+			input.passwordHash = password
 			const updatedUser = await UserModel.findByIdAndUpdate(
 				input.id,
 				{ ...input },
@@ -90,7 +103,7 @@ export class Users extends MongoDataSource<UserDocument> {
 			)
 			return updatedUser
 		} catch (error) {
-			throw new Error("Failed to update user")
+			throw new Error("Failed to update user" + error)
 		}
 	}
 
@@ -100,7 +113,7 @@ export class Users extends MongoDataSource<UserDocument> {
 			await UserModel.findByIdAndDelete(id)
 			return "User deleted successfully"
 		} catch (error) {
-			throw new Error("Failed to delete user")
+			throw new Error("Failed to delete user" + error)
 		}
 	}
 }
@@ -114,7 +127,7 @@ export class Posts extends MongoDataSource<PostDocument> {
 		}
 	}
 
-	async createPost({ input }: any) {
+	async createPost(input: any) {
 		try {
 			const postid = generatePostCode(6)
 			input.postid = postid
