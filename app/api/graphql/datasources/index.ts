@@ -103,7 +103,7 @@ export class Users extends MongoDataSource<UserDocument> {
 	}
 
 	// Function to update existing user
-	async updateUser(input: any) {
+	async updateUser(input: updateUserInput) {
 		try {
 			const password = await hash(input.password, 10)
 			input.password = password
