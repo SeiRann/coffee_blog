@@ -1,15 +1,17 @@
 "use client"
+import React from "react"
 import { useMutation } from "@apollo/client"
 import { CREATE_USER } from "../constants"
 import { useForm } from "react-hook-form"
 import Link from "next/link"
 
 type inputs = {
-	username: String
-	email: String
-	password: String
+	username: string
+	email: string
+	password: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function RegisterAccountForm({ refetch }: any) {
 	const [createUser] = useMutation(CREATE_USER)
 	const {
@@ -19,7 +21,7 @@ export default function RegisterAccountForm({ refetch }: any) {
 		formState: { errors },
 	} = useForm<inputs>()
 
-	const onSubmit = async (data: any) => {
+	const onSubmit = async (data: inputs) => {
 		const { username, email, password } = data || {}
 
 		await createUser({

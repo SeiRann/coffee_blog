@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { startServerAndCreateNextHandler } from "@as-integrations/next"
 import mongoose from "mongoose"
 import { ApolloServer } from "@apollo/server"
@@ -26,19 +27,23 @@ const server = new ApolloServer({
 	typeDefs,
 })
 
-const handler = startServerAndCreateNextHandler<NextRequest>(server, {
-	context: async (req, res) => ({
-		req,
-		res,
-		dataSources: {
-			users: new Users({ modelOrCollection: UserModel }),
-			posts: new Posts({ modelOrCollection: PostModel }),
-		},
-	}),
-})
-export async function GET(request: NextRequest) {
+const handler =
+	startServerAndCreateNextHandler <
+	NextRequest >
+	(server,
+	{
+		context: async (req, res) => ({
+			req,
+			res,
+			dataSources: {
+				users: new Users({ modelOrCollection: UserModel }),
+				posts: new Posts({ modelOrCollection: PostModel }),
+			},
+		}),
+	})
+export async function GET(request) {
 	return handler(request)
 }
-export async function POST(request: NextRequest) {
+export async function POST(request) {
 	return handler(request)
 }

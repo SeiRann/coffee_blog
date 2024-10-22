@@ -1,4 +1,5 @@
 "use client"
+import React from "react"
 import { useForm } from "react-hook-form"
 import { LOGIN_USER } from "../constants"
 import { useLazyQuery } from "@apollo/client"
@@ -38,6 +39,7 @@ export default function LoginAccountForm() {
 	// This effect listens for the result of the login query
 	useEffect(() => {
 		if (data?.login) {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { __typename, ...filteredLoginData } = data.login
 			dispatch(setUser(filteredLoginData))
 

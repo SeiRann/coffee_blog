@@ -39,13 +39,20 @@ interface updateUserInput extends createUserInput {
 	id: string
 }
 
-interface socials {
-	github: string
-	linkedin: string
-	discord: string
-	telegram: string
-	instagram: string
-	facebook: string
+// interface socials {
+// 	github: string
+// 	linkedin: string
+// 	discord: string
+// 	telegram: string
+// 	instagram: string
+// 	facebook: string
+// }
+
+interface postInput {
+	title: string
+	text: string
+	authorid: string
+	category: string
 }
 
 interface PostDocument {
@@ -140,7 +147,7 @@ export class Posts extends MongoDataSource<PostDocument> {
 		}
 	}
 
-	async createPost(input: any) {
+	async createPost(input: postInput) {
 		try {
 			const { authorid, ...importantInfo } = input
 			const user = await UserModel.findById(authorid)

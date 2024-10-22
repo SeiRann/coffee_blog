@@ -1,13 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "../../store"
 
+interface socials {
+	github: string
+	linkedin: string
+	discord: string
+	telegram: string
+	instagram: string
+	facebook: string
+}
+
 export type User = {
 	id: string
 	username: string
 	email: string
 	interests: string[]
 	posts: string[]
-	socials: {}
+	socials: socials
 	dateCreated: null
 }
 
@@ -23,7 +32,14 @@ const initialState: UserState = {
 		email: "",
 		interests: [],
 		posts: [],
-		socials: [],
+		socials: {
+			github: "",
+			linkedin: "",
+			discord: "",
+			telegram: "",
+			instagram: "",
+			facebook: "",
+		},
 		dateCreated: null,
 	},
 	status: false,

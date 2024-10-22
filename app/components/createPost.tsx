@@ -1,4 +1,5 @@
 "use client"
+import React from "react"
 import { useAppSelector } from "../lib/hooks"
 import { selectUser } from "../lib/features/user/userSlice"
 import { useForm } from "react-hook-form"
@@ -34,6 +35,7 @@ export default function CreatePost() {
 			variables: { input: { title, text, authorid, category } },
 		})
 
+		reset()
 		router.push("/")
 	}
 
@@ -47,17 +49,20 @@ export default function CreatePost() {
 					{...register("title", { required: true })}
 					className="rounded-md border-2 p-2 w-60 focus:outline-none focus:border-yellow-900 focus:bg-yellow-200 "
 				/>
+				{errors.title ? <p>Title is required</p> : <></>}
 				<input
 					type="text"
 					placeholder="Category"
 					{...register("category", { required: true })}
 					className="rounded-md border-2 p-2 w-60 focus:outline-none focus:border-yellow-900 focus:bg-yellow-200 "
 				/>
+				{errors.category ? <p>Category is required</p> : <></>}
 				<textarea
 					placeholder="Post Text..."
 					{...register("text", { required: true })}
 					className="rounded-md border-2 p-2 w-full min-h-64 focus:outline-none focus:border-yellow-900 focus:bg-yellow-200 "
 				/>
+				{errors.text ? <p>Text is required</p> : <></>}
 				<div className="flex gap-4">
 					<button className="bg-blue-500 w-32 text-white rounded-md p-1.5">Post</button>
 					<Link href={"/"} className="bg-red-500 text-white rounded-md p-1.5">

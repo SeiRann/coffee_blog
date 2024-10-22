@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const resolvers = {
 	Query: {
 		users: async (_: any, __: any, context: { dataSources: { users: { getAllUsers: () => any } } }) => {
 			try {
 				return await context.dataSources.users.getAllUsers()
 			} catch (error) {
-				throw new Error("Failed to fetch users")
+				throw new Error("Failed to fetch users" + error)
 			}
 		},
 		user: async (_: any, { username }: any, context: any) => {
 			try {
 				return await context.dataSources.users.findOne(username)
 			} catch (error) {
-				throw new Error(`Failed to fetch user with username: ${username}`)
+				throw new Error(`Failed to fetch user with username: ${username}` + error)
 			}
 		},
 		login: async (_: any, { input }: any, context: any) => {
@@ -35,21 +36,21 @@ const resolvers = {
 				const newUser = await context.dataSources.users.createUser(input)
 				return newUser
 			} catch (error) {
-				throw new Error("Failed to create user")
+				throw new Error("Failed to create user" + error)
 			}
 		},
 		updateUser: async (_: any, { input }: any, context: any) => {
 			try {
 				return await context.dataSources.users.updateUser(input)
 			} catch (error) {
-				throw new Error("Failed to update user")
+				throw new Error("Failed to update user" + error)
 			}
 		},
 		deleteUser: async (_: any, { id }: any, context: any) => {
 			try {
 				return await context.dataSources.users.deleteUser({ id })
 			} catch (error) {
-				throw new Error("Failed to delete user")
+				throw new Error("Failed to delete user" + error)
 			}
 		},
 		createPost: async (_: any, { input }: any, context: any) => {

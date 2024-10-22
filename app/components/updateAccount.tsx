@@ -1,4 +1,5 @@
 "use client"
+import React from "react"
 import { useAppSelector, useAppDispatch } from "../lib/hooks"
 import { selectStatus, selectUser, setUser } from "../lib/features/user/userSlice"
 import Link from "next/link"
@@ -31,11 +32,10 @@ export default function UpdateForm() {
 	useEffect(() => {
 		if (!status) {
 			router.push("/login")
-		} else {
 		}
 	})
 
-	const onSubmit = async (data: any) => {
+	const onSubmit = async (data: inputs) => {
 		try {
 			const { username, email, password } = data || {}
 			const id = user.id
@@ -46,12 +46,15 @@ export default function UpdateForm() {
 
 			// console.log(updatedUser.data.updateUser)
 
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { __typename, ...filteredUser } = updatedUser.data.updateUser
 
 			dispatch(setUser(filteredUser))
 		} catch (err) {
+			reset()
 			throw new Error("Failed to update user" + err)
 		} finally {
+			reset()
 			router.push("/account")
 		}
 	}
@@ -68,6 +71,7 @@ export default function UpdateForm() {
 						{...register("username", { required: true })}
 						className="rounded-md border-2 p-2 w-60 focus:outline-none focus:border-yellow-900 focus:bg-yellow-200"
 					/>
+					{errors.username ? <p>Username error</p> : <></>}
 					<input
 						type="text"
 						placeholder="Email"
@@ -75,12 +79,14 @@ export default function UpdateForm() {
 						{...register("email", { required: true })}
 						className="rounded-md border-2 p-2 w-60 focus:outline-none focus:border-yellow-900 focus:bg-yellow-200"
 					/>
+					{errors.email ? <p>Email error</p> : <></>}
 					<input
 						type="password"
 						placeholder="New Password"
 						{...register("password", { required: true })}
 						className="rounded-md border-2 p-2 w-60 focus:outline-none focus:border-yellow-900 focus:bg-yellow-200"
 					/>
+					{errors.password ? <p>Password error</p> : <></>}
 				</div>
 				<div className="flex gap-3 items-center">
 					<button className="bg-blue-500 text-white rounded-md p-1.5">Update</button>
