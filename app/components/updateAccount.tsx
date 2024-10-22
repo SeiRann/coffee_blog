@@ -11,7 +11,7 @@ import { UPDATE_USER } from "../constants"
 type inputs = {
 	username: string
 	email: string
-	passwordHash: string
+	password: string
 }
 
 export default function UpdateForm() {
@@ -37,11 +37,11 @@ export default function UpdateForm() {
 
 	const onSubmit = async (data: any) => {
 		try {
-			const { username, email, passwordHash } = data || {}
+			const { username, email, password } = data || {}
 			const id = user.id
 
 			const updatedUser = await updateUser({
-				variables: { input: { id, username, email, passwordHash } },
+				variables: { input: { id, username, email, password } },
 			})
 
 			// console.log(updatedUser.data.updateUser)
@@ -50,7 +50,7 @@ export default function UpdateForm() {
 
 			dispatch(setUser(filteredUser))
 		} catch (err) {
-			throw new Error("Failed to update user")
+			throw new Error("Failed to update user" + err)
 		} finally {
 			router.push("/account")
 		}
@@ -78,7 +78,7 @@ export default function UpdateForm() {
 					<input
 						type="password"
 						placeholder="New Password"
-						{...register("passwordHash", { required: true })}
+						{...register("password", { required: true })}
 						className="rounded-md border-2 p-2 w-60 focus:outline-none focus:border-yellow-900 focus:bg-yellow-200"
 					/>
 				</div>

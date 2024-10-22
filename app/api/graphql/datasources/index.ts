@@ -31,8 +31,21 @@ interface loginInput {
 
 interface createUserInput {
 	username: string
-	passwordHash: string
+	password: string
 	email: string
+}
+
+interface updateUserInput extends createUserInput {
+	id: string
+}
+
+interface socials {
+	github: string
+	linkedin: string
+	discord: string
+	telegram: string
+	instagram: string
+	facebook: string
 }
 
 interface PostDocument {
@@ -66,7 +79,7 @@ export class Users extends MongoDataSource<UserDocument> {
 		try {
 			const user = await this.findOne(input.username)
 			if (user != null) {
-				if (await compare(input.password, user.passwordHash)) {
+				if (await compare(input.password, user.password)) {
 					return user
 				} else {
 					return null
@@ -80,8 +93,8 @@ export class Users extends MongoDataSource<UserDocument> {
 	// Function to create a new user
 	async createUser(input: createUserInput) {
 		try {
-			const passwordHash = await hash(input.passwordHash, 10)
-			input.passwordHash = passwordHash
+			const password = await hash(input.password, 10)
+			input.password = password
 
 			return await UserModel.create({ ...input })
 		} catch (error) {
@@ -90,10 +103,10 @@ export class Users extends MongoDataSource<UserDocument> {
 	}
 
 	// Function to update existing user
-	async updateUser({ input }: any) {
+	async updateUser(input: any) {
 		try {
-			const password = await hash(input.passwordHash, 10)
-			input.passwordHash = password
+			const password = await hash(input.password, 10)
+			input.password = password
 			const updatedUser = await UserModel.findByIdAndUpdate(
 				input.id,
 				{ ...input },

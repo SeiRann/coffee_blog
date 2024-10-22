@@ -22,7 +22,7 @@ const typeDefs = `#graphql
       id:ID!
       username: String!
       email: String!
-      passwordHash:String!
+      password:String!
       interests: [String!]
       posts: [String!]
       socials: [Social]
@@ -33,7 +33,7 @@ const typeDefs = `#graphql
    input NewUserInput {
       username:String!
       email:String!
-      passwordHash:String!
+      password:String!
    }
 
    input LoginInput{
@@ -45,7 +45,7 @@ const typeDefs = `#graphql
       id: ID!
       username: String
       email: String
-      passwordHash:String
+      password:String
       interests: [String!]
       posts: [String!]
       socials: SocialInput

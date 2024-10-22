@@ -7,7 +7,7 @@ import Link from "next/link"
 type inputs = {
 	username: String
 	email: String
-	passwordHash: String
+	password: String
 }
 
 export default function RegisterAccountForm({ refetch }: any) {
@@ -20,10 +20,10 @@ export default function RegisterAccountForm({ refetch }: any) {
 	} = useForm<inputs>()
 
 	const onSubmit = async (data: any) => {
-		const { username, email, passwordHash } = data || {}
+		const { username, email, password } = data || {}
 
 		await createUser({
-			variables: { input: { username, email, passwordHash } },
+			variables: { input: { username, email, password } },
 		})
 		refetch()
 		reset()
@@ -49,7 +49,7 @@ export default function RegisterAccountForm({ refetch }: any) {
 					className="rounded-md border-2 p-2 w-60 focus:outline-none focus:border-yellow-900 focus:bg-yellow-200"
 					type="password"
 					placeholder="Password"
-					{...register("passwordHash", { required: true })}
+					{...register("password", { required: true })}
 				/>
 				{errors.email && <span>This field is required</span>}
 				<div className="flex flex-row gap-6 justify-center items-center">

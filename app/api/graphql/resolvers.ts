@@ -40,7 +40,7 @@ const resolvers = {
 		},
 		updateUser: async (_: any, { input }: any, context: any) => {
 			try {
-				return await context.dataSources.users.updateUser({ input })
+				return await context.dataSources.users.updateUser(input)
 			} catch (error) {
 				throw new Error("Failed to update user")
 			}
