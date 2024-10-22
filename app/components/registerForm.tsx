@@ -53,7 +53,7 @@ export default function RegisterAccountForm({ refetch }: any) {
 					placeholder="Password"
 					{...register("password", { required: true })}
 				/>
-				{errors.email && <span>This field is required</span>}
+				{errors.password && <span>This field is required</span>}
 				<div className="flex flex-row gap-6 justify-center items-center">
 					<Link
 						href={"/login"}

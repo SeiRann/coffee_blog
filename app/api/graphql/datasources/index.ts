@@ -74,7 +74,7 @@ export class Users extends MongoDataSource<UserDocument> {
 		}
 	}
 
-	async findOne(input: string) {
+	async findOneWithUsername(input: string) {
 		try {
 			return await UserModel.findOne({ username: input })
 		} catch (error) {
@@ -84,7 +84,7 @@ export class Users extends MongoDataSource<UserDocument> {
 
 	async login(input: loginInput) {
 		try {
-			const user = await this.findOne(input.username)
+			const user = await this.findOneWithUsername(input.username)
 			if (user != null) {
 				if (await compare(input.password, user.password)) {
 					return user
@@ -93,7 +93,7 @@ export class Users extends MongoDataSource<UserDocument> {
 				}
 			}
 		} catch (err) {
-			throw new Error("Failed to login" + err)
+			throw new Error("Failed to login " + err)
 		}
 	}
 

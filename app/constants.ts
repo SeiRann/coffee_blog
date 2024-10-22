@@ -19,7 +19,7 @@ export const FETCH_USERS = gql`
 			id
 			username
 			email
-			passwordHash
+			password
 			interests
 			posts
 			socials {
@@ -61,7 +61,7 @@ export const CREATE_USER = gql`
 			id
 			username
 			email
-			passwordHash
+			password
 			interests
 			posts
 			socials {
