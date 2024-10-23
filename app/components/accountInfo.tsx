@@ -1,20 +1,36 @@
 "use client"
 import React from "react"
-import { useEffect } from "react"
 import { selectUser, selectStatus } from "../lib/features/user/userSlice"
 import { useAppSelector } from "../lib/hooks"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
+import { resetUser } from "../lib/features/user/userSlice"
+import { useAppDispatch } from "../lib/hooks"
+import { useMutation } from "@apollo/client"
+import { DELETE_USER } from "../constants"
 import Link from "next/link"
 
 export default function AccountInfo() {
 	const user = useAppSelector(selectUser)
+	const router = useRouter()
 	const status = useAppSelector(selectStatus)
+	const dispatch = useAppDispatch()
+	const [deleteAccount] = useMutation(DELETE_USER)
 
-	useEffect(() => {
-		if (!status) {
-			redirect("/login")
-		}
-	})
+	if (!status) {
+		router.push("/login")
+	}
+
+	const onLogOut = () => {
+		dispatch(resetUser())
+		router.push("/")
+	}
+
+	const onDelete = async () => {
+		dispatch(resetUser())
+		await deleteAccount({ variables: { id: user.id } })
+
+		router.push("/")
+	}
 
 	return (
 		<div className="flex flex-col w-2/3 bg-slate-50 shadow-xl rounded-md p-5">
@@ -27,10 +43,15 @@ export default function AccountInfo() {
 				<h1>Status:{status ? "true" : "false"}</h1>
 			</div>
 			<div className="flex flex-row gap-2">
-				<button className="bg-red-500 text-white rounded-md p-1.5">Delete Account</button>
+				<button onClick={() => onDelete()} className="bg-red-500 text-white rounded-md p-1.5">
+					Delete Account
+				</button>
 				<Link href={"/updateAccount"} className="bg-green-500 text-white rounded-md p-1.5">
 					Update
 				</Link>
+				<button onClick={() => onLogOut()} className="bg-yellow-900 text-white rounded-md p-1.5">
+					Log out
+				</button>
 			</div>
 		</div>
 	)
