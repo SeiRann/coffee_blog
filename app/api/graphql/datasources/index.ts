@@ -155,7 +155,11 @@ export class Posts extends MongoDataSource<PostDocument> {
 			const postid = generatePostCode(6)
 			const dateCreated = Date.now()
 
-			return await PostModel.create({ ...importantInfo, author, postid, dateCreated })
+			const newPost = await PostModel.create({ ...importantInfo, author, postid, dateCreated })
+
+			await UserModel.findByIdAndUpdate(authorid, { posts: [...user.posts, postid] }, { new: true })
+
+			return newPost
 		} catch (err) {
 			throw new Error("Failed to create post" + err)
 		}

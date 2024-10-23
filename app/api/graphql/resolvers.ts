@@ -10,7 +10,7 @@ const resolvers = {
 		},
 		user: async (_: any, { username }: any, context: any) => {
 			try {
-				return await context.dataSources.users.findOne(username)
+				return await context.dataSources.users.findOneWithUsername(username)
 			} catch (error) {
 				throw new Error(`Failed to fetch user with username: ${username}` + error)
 			}
