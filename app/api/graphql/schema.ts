@@ -59,6 +59,8 @@ const typeDefs = `#graphql
       author: String!
       category: String!
       dateCreated: String!
+      likes: Int!
+      dislikes: Int!
    }
 
    input NewPostInput{
@@ -66,6 +68,10 @@ const typeDefs = `#graphql
       text:String!
       authorid:ID!
       category:String!
+   }
+
+   input getPostInput{
+      postid:String!
    }
 #=============================================================================================================
    type Query{
@@ -75,7 +81,7 @@ const typeDefs = `#graphql
 
 
       posts: [Post]
-      post(postid:String!):Post
+      post(input:getPostInput!): Post
    }
 
    type Mutation {

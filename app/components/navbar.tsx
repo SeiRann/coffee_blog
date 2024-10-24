@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export default function Navbar() {
 	return (
-		<div id="NavbarWrapper" className="flex flex-col justify-center items-center mb-5">
+		<div id="NavbarWrapper" className="flex flex-col justify-center items-center">
 			<div id="Navbar" className="flex flex-col gap-10 border-b-2 w-2/3 border-yellow-900">
 				<div id="NavbarTitle" className="flex items-center justify-center mt-5 gap-10">
 					<Image src="/logo.png" alt="Coffee Logo" height={128} width={128} />

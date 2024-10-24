@@ -37,7 +37,7 @@ export default function AccountInfo() {
 			<h1 className="text-3xl">Account Info</h1>
 			<p>Username: {user?.username}</p>
 			<p>Email: {user?.email}</p>
-			<p>Interests: {user?.interests}</p>
+			<p>Interests: {user?.interests.join()}</p>
 			<p>Posts: {user?.posts}</p>
 			<div>
 				<h1>Status:{status ? "true" : "false"}</h1>

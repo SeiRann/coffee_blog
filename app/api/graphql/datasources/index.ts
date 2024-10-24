@@ -55,6 +55,10 @@ interface postInput {
 	category: string
 }
 
+interface getPostInput {
+	postid: string
+}
+
 interface PostDocument {
 	_id: ObjectId
 	postid: string
@@ -144,6 +148,14 @@ export class Posts extends MongoDataSource<PostDocument> {
 			return await PostModel.find()
 		} catch (err) {
 			throw new Error("Failed to find posts" + err)
+		}
+	}
+
+	async getPost(input: getPostInput) {
+		try {
+			return await PostModel.findOne({ postid: input.postid })
+		} catch (err) {
+			console.log("Couldn't get post" + err)
 		}
 	}
 

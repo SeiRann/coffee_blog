@@ -35,7 +35,7 @@ export const FETCH_USERS = gql`
 `
 
 export const LOGIN_USER = gql`
-	query Query($input: LoginInput!) {
+	query Login($input: LoginInput!) {
 		login(input: $input) {
 			id
 			username
@@ -112,6 +112,37 @@ export const FETCH_POSTS = gql`
 			author
 			category
 			dateCreated
+			likes
+			dislikes
+		}
+	}
+`
+
+export const FETCH_POST = gql`
+	query Post($input: getPostInput!) {
+		post(input: $input) {
+			postid
+			title
+			text
+			author
+			category
+			dateCreated
+			likes
+			dislikes
+		}
+	}
+`
+
+export const FETCH_POSTS_PREVIEWS = gql`
+	query Posts {
+		posts {
+			postid
+			title
+			author
+			category
+			dateCreated
+			likes
+			dislikes
 		}
 	}
 `

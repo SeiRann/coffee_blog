@@ -28,6 +28,8 @@ const postSchema = new Schema({
 	author: { type: String, required: true },
 	category: { type: String },
 	dateCreated: { type: Date, required: true },
+	likes: { type: Number, default: 0 },
+	dislikes: { type: Number, default: 0 },
 })
 
 const UserModel = mongoose.models.UserModel || mongoose.model("UserModel", userSchema)

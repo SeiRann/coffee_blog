@@ -29,6 +29,13 @@ const resolvers = {
 				throw new Error("Failed to create get posts" + err)
 			}
 		},
+		post: async (_: any, { input }: any, context: any) => {
+			try {
+				return await context.dataSources.posts.getPost(input)
+			} catch (err) {
+				throw new Error("Failed to get Post " + err)
+			}
+		},
 	},
 	Mutation: {
 		createUser: async (_: any, { input }: any, context: any) => {
