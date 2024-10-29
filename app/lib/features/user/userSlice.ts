@@ -18,6 +18,8 @@ export type User = {
 	posts: string[]
 	socials: socials
 	dateCreated: null
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+	viewedPosts: Map<string, string>
 }
 
 interface UserState {
@@ -41,6 +43,7 @@ const initialState: UserState = {
 			facebook: "",
 		},
 		dateCreated: null,
+		viewedPosts: new Map(),
 	},
 	status: false,
 }

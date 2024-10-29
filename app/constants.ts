@@ -51,6 +51,7 @@ export const LOGIN_USER = gql`
 				instagram
 				facebook
 			}
+			viewedPosts
 		}
 	}
 `

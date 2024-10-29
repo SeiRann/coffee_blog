@@ -1,4 +1,5 @@
 "use client"
+import React from "react"
 import LoginAccountForm from "../components/loginForm"
 
 export default function Login() {
