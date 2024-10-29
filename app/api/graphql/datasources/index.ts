@@ -21,6 +21,7 @@ interface UserDocument {
 			facebook: string
 		}
 	]
+	viewedPosts: JSON
 	dateCreated: Date
 }
 
@@ -37,6 +38,14 @@ interface createUserInput {
 
 interface updateUserInput extends createUserInput {
 	id: string
+}
+
+interface updateViewedPostsInput {
+	id: string
+	viewedPost: {
+		postid: string
+		value: string
+	}
 }
 
 // interface socials {
@@ -110,6 +119,18 @@ export class Users extends MongoDataSource<UserDocument> {
 			return await UserModel.create({ ...input })
 		} catch (error) {
 			throw new Error("Failed to create user" + error)
+		}
+	}
+
+	async updateViewedPosts(input: updateViewedPostsInput) {
+		try {
+			const user = await UserModel.findById(input.id)
+			// console.log(input.viewedPost.value)
+			user.viewedPosts.set(input.viewedPost.postid, input.viewedPost.value)
+			const updatedUser = await UserModel.findByIdAndUpdate(input.id, { ...user }, { new: true })
+			return updatedUser
+		} catch (err) {
+			throw new Error("Failed to update viewedPosts " + err)
 		}
 	}
 

@@ -1,5 +1,7 @@
 const typeDefs = `#graphql
 #=============================================================================================================
+   scalar JSON
+
    type Social{
       github: String
       linkedin: String
@@ -27,9 +29,20 @@ const typeDefs = `#graphql
       posts: [String!]
       socials: [Social]
       dateCreated: String!
+      viewedPosts:JSON
    }
 
-  
+   input viewedPostInput{
+      postid:String!
+      value:String!
+   }
+
+   input updateViewedPostsInput{
+      id:String!
+      viewedPost:viewedPostInput!
+   }
+
+
    input NewUserInput {
       username:String!
       email:String!
@@ -79,7 +92,6 @@ const typeDefs = `#graphql
       user(username:String!): User
       login(input:LoginInput! ): User
 
-
       posts: [Post]
       post(input:getPostInput!): Post
    }
@@ -88,6 +100,8 @@ const typeDefs = `#graphql
       createUser(input: NewUserInput!): User
       updateUser(input: UpdateUserInput!): User
       deleteUser(id: ID!): String
+
+      updateUserViewedPosts(input:updateViewedPostsInput!):User
 
       createPost(input: NewPostInput!): Post
    }

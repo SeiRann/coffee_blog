@@ -18,6 +18,11 @@ const userSchema = new Schema({
 			facebook: { type: String },
 		},
 	],
+	viewedPosts: {
+		type: Map,
+		of: String,
+		default: {},
+	},
 	dateCreated: { type: Date, required: true, default: Date.now() },
 })
 
@@ -30,6 +35,7 @@ const postSchema = new Schema({
 	dateCreated: { type: Date, required: true },
 	likes: { type: Number, default: 0 },
 	dislikes: { type: Number, default: 0 },
+	views: { type: Number, default: 0 },
 })
 
 const UserModel = mongoose.models.UserModel || mongoose.model("UserModel", userSchema)

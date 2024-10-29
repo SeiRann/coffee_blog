@@ -60,6 +60,13 @@ const resolvers = {
 				throw new Error("Failed to delete user" + error)
 			}
 		},
+		updateUserViewedPosts: async (_: any, { input }: any, context: any) => {
+			try {
+				return await context.dataSources.users.updateViewedPosts(input)
+			} catch (err) {
+				throw new Error("Failed to update viewed posts " + err)
+			}
+		},
 		createPost: async (_: any, { input }: any, context: any) => {
 			try {
 				const newPost = await context.dataSources.posts.createPost(input)
