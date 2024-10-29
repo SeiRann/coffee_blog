@@ -67,6 +67,20 @@ const resolvers = {
 				throw new Error("Failed to update viewed posts " + err)
 			}
 		},
+		addInteraction: async (_: any, { input }: any, context: any) => {
+			try {
+				return await context.dataSources.posts.addInteraction(input)
+			} catch (err) {
+				throw new Error("Failed to add interaction " + err)
+			}
+		},
+		removeInteraction: async (_: any, { input }: any, context: any) => {
+			try {
+				return await context.dataSources.posts.removeInteraction(input)
+			} catch (err) {
+				throw new Error("Failed to add interaction " + err)
+			}
+		},
 		createPost: async (_: any, { input }: any, context: any) => {
 			try {
 				const newPost = await context.dataSources.posts.createPost(input)

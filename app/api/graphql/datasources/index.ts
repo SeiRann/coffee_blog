@@ -68,6 +68,11 @@ interface getPostInput {
 	postid: string
 }
 
+interface interactionInput {
+	postid: string
+	interactionType: string
+}
+
 interface PostDocument {
 	_id: ObjectId
 	postid: string
@@ -76,6 +81,9 @@ interface PostDocument {
 	author: string
 	category: string
 	dateCreated: Date
+	likes: number
+	dislikes: number
+	views: number
 }
 
 export class Users extends MongoDataSource<UserDocument> {
@@ -177,6 +185,56 @@ export class Posts extends MongoDataSource<PostDocument> {
 			return await PostModel.findOne({ postid: input.postid })
 		} catch (err) {
 			console.log("Couldn't get post" + err)
+		}
+	}
+
+	async addInteraction(input: interactionInput) {
+		try {
+			const post = await PostModel.findOne({ postid: input.postid })
+			switch (input.interactionType) {
+				case "V":
+					post.views += 1
+					return await PostModel.findByIdAndUpdate(post.id, { ...post }, { new: true })
+				case "D":
+					post.dislikes += 1
+					return await PostModel.findByIdAndUpdate(post.id, { ...post }, { new: true })
+				case "L":
+					post.likes += 1
+					return await PostModel.findByIdAndUpdate(post.id, { ...post }, { new: true })
+			}
+		} catch (err) {
+			throw new Error("Failed to add interaction " + err)
+		}
+	}
+
+	async removeInteraction(input: interactionInput) {
+		try {
+			const post = await PostModel.findOne({ postid: input.postid })
+			switch (input.interactionType) {
+				case "V":
+					if (post.views > 0) {
+						post.views -= 1
+						return await PostModel.findByIdAndUpdate(post.id, { ...post }, { new: true })
+					} else {
+						throw new Error("Cannot subtract from 0 views")
+					}
+				case "D":
+					if (post.dislikes > 0) {
+						post.dislikes -= 1
+						return await PostModel.findByIdAndUpdate(post.id, { ...post }, { new: true })
+					} else {
+						throw new Error("Cannot subtract from 0 dislikes")
+					}
+				case "L":
+					if (post.likes > 0) {
+						post.likes -= 1
+						return await PostModel.findByIdAndUpdate(post.id, { ...post }, { new: true })
+					} else {
+						throw new Error("Cannot subtract from 0 likes")
+					}
+			}
+		} catch (err) {
+			throw new Error("Failed to add interaction " + err)
 		}
 	}
 

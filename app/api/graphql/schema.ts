@@ -74,6 +74,7 @@ const typeDefs = `#graphql
       dateCreated: String!
       likes: Int!
       dislikes: Int!
+      views:Int!
    }
 
    input NewPostInput{
@@ -81,6 +82,11 @@ const typeDefs = `#graphql
       text:String!
       authorid:ID!
       category:String!
+   }
+
+   input InteractionInput{
+      postid:String!
+      interactionType:String!
    }
 
    input getPostInput{
@@ -102,6 +108,9 @@ const typeDefs = `#graphql
       deleteUser(id: ID!): String
 
       addViewedPost(input:addViewedPostInput!):User
+
+      addInteraction(input:InteractionInput!):Post
+      removeInteraction(input:InteractionInput!):Post
 
       createPost(input: NewPostInput!): Post
    }

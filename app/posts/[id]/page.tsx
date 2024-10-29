@@ -5,7 +5,7 @@ import { FETCH_POST } from "@/app/constants"
 import BlogPost from "@/app/components/BlogPost"
 import { selectStatus, selectUser } from "@/app/lib/features/user/userSlice"
 import { useAppSelector } from "@/app/lib/hooks"
-// import { useMutation } from "@apollo/client"
+import { useMutation } from "@apollo/client"
 
 export default function PostPage({ params }: { params: { id: string } }) {
 	const status = useAppSelector(selectStatus)
