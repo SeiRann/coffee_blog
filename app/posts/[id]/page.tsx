@@ -9,6 +9,7 @@ import { useAppSelector } from "@/app/lib/hooks"
 
 export default function PostPage({ params }: { params: { id: string } }) {
 	const status = useAppSelector(selectStatus)
+	const user = useAppSelector(selectUser)
 
 	const { loading, data, error } = useQuery(FETCH_POST, {
 		variables: {
@@ -19,7 +20,6 @@ export default function PostPage({ params }: { params: { id: string } }) {
 	})
 
 	if (status) {
-		const user = useAppSelector(selectUser)
 		const viewedPosts = new Map(Object.entries(user.viewedPosts))
 
 		if (viewedPosts.has(params.id)) {
