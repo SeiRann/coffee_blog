@@ -40,7 +40,7 @@ interface updateUserInput extends createUserInput {
 	id: string
 }
 
-interface updateViewedPostsInput {
+interface addViewedPostInput {
 	id: string
 	viewedPost: {
 		postid: string
@@ -122,7 +122,7 @@ export class Users extends MongoDataSource<UserDocument> {
 		}
 	}
 
-	async updateViewedPosts(input: updateViewedPostsInput) {
+	async addViewedPost(input: addViewedPostInput) {
 		try {
 			const user = await UserModel.findById(input.id)
 			// console.log(input.viewedPost.value)
@@ -130,7 +130,7 @@ export class Users extends MongoDataSource<UserDocument> {
 			const updatedUser = await UserModel.findByIdAndUpdate(input.id, { ...user }, { new: true })
 			return updatedUser
 		} catch (err) {
-			throw new Error("Failed to update viewedPosts " + err)
+			throw new Error("Failed to add viewedPost " + err)
 		}
 	}
 

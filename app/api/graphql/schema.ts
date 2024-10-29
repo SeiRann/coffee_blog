@@ -37,7 +37,7 @@ const typeDefs = `#graphql
       value:String!
    }
 
-   input updateViewedPostsInput{
+   input addViewedPostInput{
       id:String!
       viewedPost:viewedPostInput!
    }
@@ -101,7 +101,7 @@ const typeDefs = `#graphql
       updateUser(input: UpdateUserInput!): User
       deleteUser(id: ID!): String
 
-      updateUserViewedPosts(input:updateViewedPostsInput!):User
+      addViewedPost(input:addViewedPostInput!):User
 
       createPost(input: NewPostInput!): Post
    }

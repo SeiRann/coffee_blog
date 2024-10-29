@@ -60,9 +60,9 @@ const resolvers = {
 				throw new Error("Failed to delete user" + error)
 			}
 		},
-		updateUserViewedPosts: async (_: any, { input }: any, context: any) => {
+		addViewedPost: async (_: any, { input }: any, context: any) => {
 			try {
-				return await context.dataSources.users.updateViewedPosts(input)
+				return await context.dataSources.users.addViewedPost(input)
 			} catch (err) {
 				throw new Error("Failed to update viewed posts " + err)
 			}
